@@ -10,9 +10,11 @@ fun main(args: Array<String>) {
 
      */
 
-    val m = Matrix("1,1;2,1;3,1")
+    val m = Matrix("1,1,0;2,0,1;1.5,3,1")
 
 
-    println("Program arguments: ${m.vals}, ${m.getCol(1)}, $m")
-    println(m*m.T())
+
+    println("Program arguments: ${m.vals}, ${m.getCol(1)}, ${m[3,1]}")
+    println(m.slice())
+    println(m.slice(null,2,2,null))
 }

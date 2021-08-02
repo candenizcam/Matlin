@@ -106,6 +106,21 @@ class  Matrix private constructor(){
         return Matrix(l,Pair(other.shape.second,shape.first))
     }
 
+    operator fun get(row: Int,col: Int): Double {
+        return getRow(row)[col-1]
+    }
+
+    /** returns the sliced matrix if null, it is computed to the end
+     */
+    fun slice(r1: Int?=null, r2: Int?=null,c1: Int?=null,c2: Int?=null): Matrix {
+        ((r1?:1)..(r2?:shape.first)).map {i->
+            val r = getRow(i)
+            ((c1?:1)..(c2?:shape.second)).map {i2-> r[i2-1] }
+        }.also {
+            return Matrix(it)
+        }
+    }
+
     /** adjusts the output for printing
      */
     override fun toString(): String {
