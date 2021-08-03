@@ -1,4 +1,5 @@
 
+
 /** This class handles matrix computations
  */
 class  Matrix private constructor(){
@@ -6,7 +7,7 @@ class  Matrix private constructor(){
 
     var shape: Pair<Int,Int> = Pair(0,0)
         private set
-    var vals: List<Double> = listOf(0.0)
+    var vals: MutableList<Double> = mutableListOf(0.0)
         private set
 
     /** Secondary constructor for list
@@ -20,7 +21,7 @@ class  Matrix private constructor(){
             }
         }
         this.shape = shape ?: Pair(values.size,1)
-        this.vals = values
+        this.vals = values.toMutableList()
     }
 
     /** Secondary constructor for string
@@ -46,7 +47,7 @@ class  Matrix private constructor(){
             }
             n1 = 0
         }
-        vals = nvals.toList()
+        vals = nvals
         shape = Pair(rows.size,vals.size/rows.size)
     }
 
@@ -57,6 +58,8 @@ class  Matrix private constructor(){
             separator = ","
         )
     })
+
+
 
 
     /** Operators:
@@ -106,8 +109,14 @@ class  Matrix private constructor(){
         return Matrix(l,Pair(other.shape.second,shape.first))
     }
 
+    /** get and set for 2d bracket access
+     */
     operator fun get(row: Int,col: Int): Double {
-        return getRow(row)[col-1]
+        return vals[(row-1)*shape.second+col-1]
+    }
+
+    operator fun set(row: Int,col: Int, value: Double) {
+        vals[(row-1)*shape.second+col-1] = value
     }
 
     /** returns the sliced matrix if null, it is computed to the end
@@ -139,15 +148,44 @@ class  Matrix private constructor(){
         if (n !in 1..shape.first){
             throw Exception("matrix does not have row $n")
         }
-        return (0 until shape.second).map {i-> vals[i+(n-1)*shape.second] }
+        val l= List(shape.second){index->
+            get(n,index+1)
+        }
+        return l
     }
 
     fun getCol(n: Int): List<Double> {
         if (n !in 1..shape.second){
             throw Exception("matrix does not have column $n")
         }
-        return (0 until shape.first).map {i-> vals[i*shape.second+n-1] }
+        val l= List(shape.second){index->
+            get(index+1,n)
+        }
+        return l
     }
+
+
+    fun concatenate(other: Matrix, axis: Int = 0): Matrix{
+        return when (axis) {
+            0 -> {
+                val nShape = Pair(shape.first+other.shape.first,shape.second)
+                Matrix(vals+other.vals,nShape)
+            }
+            1 -> {
+                val nShape = Pair(shape.first,shape.second+other.shape.second)
+                val l = mutableListOf<Double>()
+                for (i in 1..nShape.first){
+                    l += getRow(i)+other.getRow(i)
+                }
+                Matrix(l,nShape)
+            }
+            else -> {
+                throw Exception("axis must be 0 or 1")
+            }
+        }
+    }
+
+
 
 
     /** Transpose of a matrix
