@@ -54,9 +54,9 @@ fun main(args: Array<String>) {
 
 
 
-    println(SpecialMatrix.identity(5).concatenate(SpecialMatrix.identity(5)))
+    println(SpecialMatrix.rotationMatrix3d(1.57,3)*Matrix("1;0;0"))
 
-    println(SpecialMatrix.identity(5).concatenate(SpecialMatrix.identity(5),axis = 1))
+    println(SpecialMatrix.rotationMatrix3d(1.57,3)*Matrix("0.5;0.5;0"))
 
 
 

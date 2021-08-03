@@ -1,3 +1,6 @@
+import kotlin.math.cos
+import kotlin.math.sin
+
 /** This object contains various special matrices as shorthand
  *
  */
@@ -23,6 +26,33 @@ object SpecialMatrix {
 
     fun identity(len: Int): Matrix {
         return identity(Pair(len,len))
+    }
+
+    /** Generates a rotation matrix, default is 2d
+     *
+     */
+    fun rotationMatrix2d(rad: Double): Matrix {
+        val c = cos(rad)
+        val s = sin(rad)
+        return Matrix(listOf(c,-s,s,c), Pair(2,2))
+
+
+
+    }
+
+    /** Axis inputs are 1: x, 2: y, 3:z
+     *
+     */
+    fun rotationMatrix3d(rad: Double, axis: Int): Matrix {
+        val c = cos(rad)
+        val s = sin(rad)
+        val a = axis-1
+        return identity(3).also {m->
+            m[(a+1).mod(3)+1,(a+1).mod(3)+1]=c
+            m[(a+2).mod(3)+1,(a+2).mod(3)+1]=c
+            m[(a+1).mod(3)+1,(a+2).mod(3)+1]=-s
+            m[(a+2).mod(3)+1,(a+1).mod(3)+1]=s
+        }
     }
 
 

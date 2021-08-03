@@ -106,7 +106,7 @@ class  Matrix private constructor(){
                 l.add(n)
             }
         }
-        return Matrix(l,Pair(other.shape.second,shape.first))
+        return Matrix(l,Pair(shape.first,other.shape.second))
     }
 
     /** get and set for 2d bracket access
@@ -158,7 +158,7 @@ class  Matrix private constructor(){
         if (n !in 1..shape.second){
             throw Exception("matrix does not have column $n")
         }
-        val l= List(shape.second){index->
+        val l= List(shape.first){index->
             get(index+1,n)
         }
         return l
