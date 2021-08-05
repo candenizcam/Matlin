@@ -10,6 +10,9 @@ object Factorization {
      *
      */
     fun lu(m: Matrix): Pair<Matrix, Matrix> {
+        if(!m.square){
+            throw Exception("input of lu must be a square matrix")
+        }
         val n = m.shape.first
         val L = zeros(n)
         val U = zeros(n)
@@ -41,6 +44,9 @@ object Factorization {
      * returns a triple with permutation matrix P and LU such that PA=LU
      */
     fun partialPivotLU(m: Matrix): Triple<Matrix, Matrix, Matrix> {
+        if(!m.square){
+            throw Exception("input of partialPivotLU must be a square matrix")
+        }
         val n = m.shape.first
         var A = m.copy()
         var P = identity(n)
