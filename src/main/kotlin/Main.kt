@@ -1,3 +1,4 @@
+import kotlin.random.Random
 import kotlin.system.measureNanoTime
 
 fun main(args: Array<String>) {
@@ -12,51 +13,42 @@ fun main(args: Array<String>) {
 
      */
 
-    val m = Matrix("1,2,3;2,0,1;1.5,3,1")
+    val m = Matrix("1,2,3;4,5,6;7,8,9")
+    //val l = List(100) { Random.nextDouble(-10.0,10.0)}
+    //val m = Matrix(l,Pair(10,10))
 
-    println(m[2,3])
+    //println(m)
+    println("LU")
+    //val t = Factorization.doolitle(m)
 
-    measureNanoTime {  }
+    val t = Factorization.lu(m)
 
-
-
-    val t1 = measureNanoTime {
-        for(i in 1..10000){
-            //m.set1(1,2,15.3)
-        }
-    }
-
-    val t2 = measureNanoTime {
-        for(i in 1..10000){
-            //m.set2(1,2,15.3)
-        }
-    }
-
-    val t3 = measureNanoTime {
-        for(i in 1..10000){
-            m.set(1,2,15.3)
-        }
-    }
-
-    val t4 = measureNanoTime {
-        for(i in 1..10000){
-            m.set(1,2,15.3)
-            m[2,3]=-15.3
-        }
-    }
-
-    println(m)
+    println(Norms.frobenius(m-(t.first*t.second)))
 
 
 
 
-    println("t1: $t1, \nt2: $t2, \nt3: $t3\nt4: $t4")
+
+    /*
+    println(t.first)
+    println(t.second)
+    println(t.first*t.second)
+
+    println((m*-1.0)+(t.first*t.second))
+
+     */
+    /*
+    val t = Factorization.lu(m)
+    println(t.first)
+    println(t.second)
+    println(t.third)
+
+     */
 
 
 
-    println(SpecialMatrix.rotationMatrix3d(1.57,3)*Matrix("1;0;0"))
 
-    println(SpecialMatrix.rotationMatrix3d(1.57,3)*Matrix("0.5;0.5;0"))
+
 
 
 

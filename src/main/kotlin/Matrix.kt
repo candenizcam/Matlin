@@ -9,6 +9,10 @@ class  Matrix private constructor(){
         private set
     var vals: MutableList<Double> = mutableListOf(0.0)
         private set
+    val square: Boolean
+        get() {
+            return shape.first==shape.second
+        }
 
     /** Secondary constructor for list
      * This constructor takes a list of doubles and a shape pair, this is the default scheme
@@ -135,9 +139,14 @@ class  Matrix private constructor(){
     override fun toString(): String {
         var s = "matrix: \n"
         for (i in 1..shape.first){
-            s += getRow(i).joinToString()+"\n"
+            s += getRow(i).map {it-> "%.3f".format(it) }.joinToString()+"\n"
+            //s += getRow(i).joinToString()+"\n"
         }
         return s
+    }
+
+    fun copy():Matrix{
+        return Matrix(vals, shape)
     }
 
 

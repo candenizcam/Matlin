@@ -13,6 +13,10 @@ object SpecialMatrix {
         return full(0.0,shape)
     }
 
+    fun zeros(len: Int): Matrix {
+        return full(0.0,Pair(len,len))
+    }
+
     fun identity(shape: Pair<Int,Int>): Matrix{
         if(shape.first!=shape.second){
             throw Exception("The shape of an identity matrix must be a square")
@@ -53,6 +57,25 @@ object SpecialMatrix {
             m[(a+1).mod(3)+1,(a+2).mod(3)+1]=-s
             m[(a+2).mod(3)+1,(a+1).mod(3)+1]=s
         }
+    }
+
+    /** Returns a swap matrix that swaps first to second given value
+     * if multiplied from left it swaps rows, if multiplied from right it swaps columns
+     */
+    fun swapMatrix(n:Int, first:Int, second: Int): Matrix {
+
+        return if(first==second){
+            identity(n)
+        } else{
+            identity(n).also {m->
+                m[first,first]=0.0
+                m[first,second]=1.0
+                m[second,first]=1.0
+                m[second,second]=0.0
+            }
+        }
+
+
     }
 
 
