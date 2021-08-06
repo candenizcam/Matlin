@@ -5,11 +5,22 @@ import kotlin.math.abs
 
 object Factorization {
 
+    /** Main handler for lu, additional inputs can be used to change methods
+     *
+     */
+    fun lu(m: Matrix, partialPivot: Boolean=false): List<Matrix> {
+        return if (partialPivot){
+            partialPivotLU(m)
+        }else{
+            doolitleLU(m)
+        }
+    }
+
     /** Applies doolitle algorithm to a matrix to get LU factorization
      * returns a pair, first is L second is U
      *
      */
-    fun lu(m: Matrix): Pair<Matrix, Matrix> {
+    fun doolitleLU(m: Matrix): List<Matrix> {
         if(!m.square){
             throw Exception("input of lu must be a square matrix")
         }
@@ -36,14 +47,14 @@ object Factorization {
                 }
             }
         }
-        return Pair(L, U)
+        return listOf(L, U)
 
     }
 
     /** First does partial pivoting and then applies lu
      * returns a triple with permutation matrix P and LU such that PA=LU
      */
-    fun partialPivotLU(m: Matrix): Triple<Matrix, Matrix, Matrix> {
+    fun partialPivotLU(m: Matrix): List<Matrix> {
         if(!m.square){
             throw Exception("input of partialPivotLU must be a square matrix")
         }
@@ -66,8 +77,8 @@ object Factorization {
                 A = P*m
             }
         }
-        lu(P*m).also {
-            return Triple(P,it.first,it.second)
+        doolitleLU(P*m).also {
+            return listOf(P,it[0],it[1])
         }
     }
 }

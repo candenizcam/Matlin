@@ -13,9 +13,12 @@ fun main(args: Array<String>) {
 
      */
 
-    val m = Matrix("1,2,3;4,5,6;7,8,9")
-    //val l = List(100) { Random.nextDouble(-10.0,10.0)}
-    //val m = Matrix(l,Pair(10,10))
+    //val m = Matrix("2,0,1;0,3,0;1,0,5")
+    val l = List(100) { Random.nextDouble(-10.0,10.0)}
+    val mSing = Matrix(l,Pair(10,10))
+    val m = mSing.T()*mSing
+    //val l2= List(10) { Random.nextDouble(-10.0,10.0)}
+    //val x1 =  Matrix(l2,Pair(10,1))
 
     //println(m)
     println("LU")
@@ -23,7 +26,15 @@ fun main(args: Array<String>) {
 
     val t = Factorization.lu(m)
 
-    println(Norms.frobenius(m-(t.first*t.second)))
+    println(Norms.frobenius(m-(t[0]*t[1])))
+
+    //val x1 = Matrix("1;2;3")
+    //val b = m*x1
+    //val x2= LinearSolution.forwardBackwardsSubstitution(m,b)
+    //println(Norms.vectorNorm(x2-x1))
+
+    val m2= MatrixInversion.inversion(m)
+    println(Norms.frobenius(m2*m-SpecialMatrix.identity(10)))
 
 
 
