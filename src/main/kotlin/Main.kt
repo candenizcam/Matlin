@@ -14,9 +14,14 @@ fun main(args: Array<String>) {
      */
 
     //val m = Matrix("2,0,1;0,3,0;1,0,5")
-    val l = List(100) { Random.nextDouble(-10.0,10.0)}
-    val mSing = Matrix(l,Pair(10,10))
-    val m = mSing.T()*mSing
+
+
+    val n= 10
+    val l = List(n*n) { Random.nextDouble(-1000.0,1000.0)}
+    val mSing = Matrix(l,Pair(n,n))
+    val m = mSing //.T()*mSing
+
+    //val m = Matrix("4,15,2;22,1,3;5,2,10")
     //val l2= List(10) { Random.nextDouble(-10.0,10.0)}
     //val x1 =  Matrix(l2,Pair(10,1))
 
@@ -32,9 +37,32 @@ fun main(args: Array<String>) {
     //val b = m*x1
     //val x2= LinearSolution.forwardBackwardsSubstitution(m,b)
     //println(Norms.vectorNorm(x2-x1))
+    val testNo = 1000
+    /*
+    val t2 = measureNanoTime {
+        for(i in 1..testNo){
+            MatrixInversion.inversion(m)
+        }
 
-    val m2= MatrixInversion.inversion(m)
-    println(Norms.frobenius(m2*m-SpecialMatrix.identity(10)))
+    }
+    println("average in %.3f ms".format(t2*1e-6/testNo))
+     */
+    //println("not pivot")
+    println("with pivot")
+    val m3= MatrixInversion.inversion(m)
+    val s3 = m3*m-SpecialMatrix.identity(m.shape.first)
+    println(Norms.frobenius(s3))
+
+
+
+
+
+
+
+
+
+
+
 
 
 

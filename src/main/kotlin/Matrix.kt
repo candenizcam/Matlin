@@ -14,6 +14,7 @@ class  Matrix private constructor(){
             return shape.first==shape.second
         }
 
+
     /** Secondary constructor for list
      * This constructor takes a list of doubles and a shape pair, this is the default scheme
      */
@@ -57,11 +58,32 @@ class  Matrix private constructor(){
 
     /** third constructor that handles list of lists input, inner lists are rows
      */
-    public constructor(lists: List<List<Double>>): this(lists.joinToString(separator = ";") { it ->
-        it.joinToString(
-            separator = ","
-        )
-    })
+    public constructor(lists: List<List<Double>>, asRows:Boolean=true): this(){
+        val vals = mutableListOf<Double>()
+        val r: Int
+        val c: Int
+        if(asRows){
+            r = lists.size
+            c = lists[0].size
+            for(i in 0 until r){
+                for(j in 0 until c){
+                    vals.add(lists[i][j])
+                }
+            }
+            this.vals = vals
+            this.shape = Pair(r,c)
+        }else{
+            c = lists.size
+            r = lists[0].size
+            for(i in 0 until r){
+                for(j in 0 until c){
+                    vals.add(lists[j][i])
+                }
+            }
+            this.vals = vals
+            this.shape = Pair(r,c)
+        }
+    }
 
 
 
