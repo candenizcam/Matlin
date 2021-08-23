@@ -1,3 +1,5 @@
+package matlin
+
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -5,7 +7,7 @@ import kotlin.math.sin
  *
  */
 object SpecialMatrix {
-    fun full(n: Double, shape: Pair<Int,Int>): Matrix{
+    fun full(n: Double, shape: Pair<Int,Int>): Matrix {
         return Matrix(List(shape.first*shape.second){n},shape)
     }
 
@@ -17,7 +19,7 @@ object SpecialMatrix {
         return full(0.0,Pair(len,len))
     }
 
-    fun identity(shape: Pair<Int,Int>): Matrix{
+    fun identity(shape: Pair<Int,Int>): Matrix {
         if(shape.first!=shape.second){
             throw Exception("The shape of an identity matrix must be a square")
         }
@@ -51,7 +53,7 @@ object SpecialMatrix {
         val c = cos(rad)
         val s = sin(rad)
         val a = axis-1
-        return identity(3).also {m->
+        return identity(3).also { m->
             m[(a+1).mod(3)+1,(a+1).mod(3)+1]=c
             m[(a+2).mod(3)+1,(a+2).mod(3)+1]=c
             m[(a+1).mod(3)+1,(a+2).mod(3)+1]=-s
@@ -67,7 +69,7 @@ object SpecialMatrix {
         return if(first==second){
             identity(n)
         } else{
-            identity(n).also {m->
+            identity(n).also { m->
                 m[first,first]=0.0
                 m[first,second]=1.0
                 m[second,first]=1.0

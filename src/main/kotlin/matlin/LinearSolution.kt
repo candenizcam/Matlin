@@ -1,3 +1,5 @@
+package matlin
+
 object LinearSolution {
     fun forwardBackwardsSubstitution(A: Matrix, b: Matrix): Matrix {
         val L: Matrix
@@ -13,7 +15,7 @@ object LinearSolution {
 
     fun forwardBackwardsSubstitution(L: Matrix, U: Matrix, b: Matrix): Matrix {
         val n = L.shape.first
-        val c = SpecialMatrix.zeros(Pair(n,1))
+        val c = SpecialMatrix.zeros(Pair(n, 1))
         for (i in 1..n){
             var a = b[i,1]
             for(j in 2..i){
@@ -22,7 +24,7 @@ object LinearSolution {
             c[i,1] = a/L[i,i]
         }
 
-        val x = SpecialMatrix.zeros(Pair(n,1))
+        val x = SpecialMatrix.zeros(Pair(n, 1))
         for (i in n downTo 1 step 1){
             var a = c[i,1]
             for(j in (i+1)..n){

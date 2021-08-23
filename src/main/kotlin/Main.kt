@@ -1,19 +1,19 @@
+import matlin.*
 import kotlin.random.Random
-import kotlin.system.measureNanoTime
 
 fun main(args: Array<String>) {
     println("Hello World!")
 
     // Try adding program arguments at Run/Debug configuration
     /*
-    val m1 = Matrix(listOf(1.0,2.3,5.0))
-    val m2 = Matrix("1;2.3;5")
+    val m1 = Matlin.Matrix(listOf(1.0,2.3,5.0))
+    val m2 = Matlin.Matrix("1;2.3;5")
 
     val m = m1+m2
 
      */
 
-    //val m = Matrix("2,0,1;0,3,0;1,0,5")
+    //val m = Matlin.Matrix("2,0,1;0,3,0;1,0,5")
 
 
     val n= 10
@@ -21,27 +21,27 @@ fun main(args: Array<String>) {
     val mSing = Matrix(l,Pair(n,n))
     val m = mSing //.T()*mSing
 
-    //val m = Matrix("4,15,2;22,1,3;5,2,10")
+    //val m = Matlin.Matrix("4,15,2;22,1,3;5,2,10")
     //val l2= List(10) { Random.nextDouble(-10.0,10.0)}
-    //val x1 =  Matrix(l2,Pair(10,1))
+    //val x1 =  Matlin.Matrix(l2,Pair(10,1))
 
     //println(m)
     println("LU")
-    //val t = Factorization.doolitle(m)
+    //val t = Matlin.Factorization.doolitle(m)
 
     val t = Factorization.lu(m)
 
     println(Norms.frobenius(m-(t[0]*t[1])))
 
-    //val x1 = Matrix("1;2;3")
+    //val x1 = Matlin.Matrix("1;2;3")
     //val b = m*x1
-    //val x2= LinearSolution.forwardBackwardsSubstitution(m,b)
-    //println(Norms.vectorNorm(x2-x1))
+    //val x2= Matlin.LinearSolution.forwardBackwardsSubstitution(m,b)
+    //println(Matlin.Norms.vectorNorm(x2-x1))
     val testNo = 1000
     /*
     val t2 = measureNanoTime {
         for(i in 1..testNo){
-            MatrixInversion.inversion(m)
+            Matlin.MatrixInversion.inversion(m)
         }
 
     }
@@ -50,7 +50,7 @@ fun main(args: Array<String>) {
     //println("not pivot")
     println("with pivot")
     val m3= MatrixInversion.inversion(m)
-    val s3 = m3*m-SpecialMatrix.identity(m.shape.first)
+    val s3 = m3*m- SpecialMatrix.identity(m.shape.first)
     println(Norms.frobenius(s3))
 
 
@@ -77,7 +77,7 @@ fun main(args: Array<String>) {
 
      */
     /*
-    val t = Factorization.lu(m)
+    val t = Matlin.Factorization.lu(m)
     println(t.first)
     println(t.second)
     println(t.third)

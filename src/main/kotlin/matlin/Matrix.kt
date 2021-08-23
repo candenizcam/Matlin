@@ -1,4 +1,4 @@
-
+package matlin
 
 /** This class handles matrix computations
  */
@@ -167,7 +167,7 @@ class  Matrix private constructor(){
         return s
     }
 
-    fun copy():Matrix{
+    fun copy(): Matrix {
         return Matrix(vals, shape)
     }
 
@@ -196,7 +196,7 @@ class  Matrix private constructor(){
     }
 
 
-    fun concatenate(other: Matrix, axis: Int = 0): Matrix{
+    fun concatenate(other: Matrix, axis: Int = 0): Matrix {
         return when (axis) {
             0 -> {
                 val nShape = Pair(shape.first+other.shape.first,shape.second)

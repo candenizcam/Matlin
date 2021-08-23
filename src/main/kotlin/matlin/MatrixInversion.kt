@@ -1,3 +1,5 @@
+package matlin
+
 object MatrixInversion {
     fun inversion(m: Matrix, pivot: Boolean=true): Matrix {
         return if(m.square){
@@ -8,16 +10,16 @@ object MatrixInversion {
             }
 
         }else{
-            throw Exception("Matrix must be square")
+            throw Exception("Matlin.Matrix must be square")
         }
     }
 
     private fun pivotSquareInvert(m: Matrix): Matrix {
         val n = m.shape.first
 
-        var lu = Factorization.lu(m,partialPivot = true)
+        var lu = Factorization.lu(m, partialPivot = true)
         if(!invertible(lu[2],true)){
-            throw Exception("Matrix not invertible")
+            throw Exception("Matlin.Matrix not invertible")
         }
 
         val I = SpecialMatrix.identity(n)
@@ -25,7 +27,7 @@ object MatrixInversion {
         var l = mutableListOf<Double>()
         for(i in 1..n){
             val e = I.slice(c1=i,c2=i)
-            val newList = LinearSolution.forwardBackwardsSubstitution(lu[1],lu[2],e)
+            val newList = LinearSolution.forwardBackwardsSubstitution(lu[1], lu[2], e)
             l += newList.getCol(1)
         }
         return Matrix(l,shape = Pair(n,n)).T()*lu[0]
@@ -36,20 +38,20 @@ object MatrixInversion {
         val I = SpecialMatrix.identity(n)
         var lu = Factorization.lu(m)
         if(!invertible(lu[1],true)){
-            throw Exception("Matrix not invertible")
+            throw Exception("Matlin.Matrix not invertible")
         }
 
         var l = mutableListOf<Double>()
         for(i in 1..n){
             val e = I.slice(c1=i,c2=i)
-            val newList = LinearSolution.forwardBackwardsSubstitution(lu[0],lu[1],e)
+            val newList = LinearSolution.forwardBackwardsSubstitution(lu[0], lu[1], e)
             l += newList.getCol(1)
         }
         return Matrix(l,shape = Pair(n,n)).T()
     }
 
     fun pseudoinverse(m: Matrix): Matrix {
-        return (m*inversion(m.T()*m)).T()
+        return (m* inversion(m.T()*m)).T()
     }
 
 
@@ -64,7 +66,7 @@ object MatrixInversion {
 
 
     fun invertible(m: Matrix): Boolean {
-        val lu = Factorization.lu(m,partialPivot = true)
+        val lu = Factorization.lu(m, partialPivot = true)
         return invertible(lu[2],isU = true)
     }
 

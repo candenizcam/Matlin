@@ -1,6 +1,8 @@
-import SpecialMatrix.identity
-import SpecialMatrix.swapMatrix
-import SpecialMatrix.zeros
+package matlin
+
+import matlin.SpecialMatrix.identity
+import matlin.SpecialMatrix.swapMatrix
+import matlin.SpecialMatrix.zeros
 import kotlin.math.abs
 
 object Factorization {
