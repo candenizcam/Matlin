@@ -15,6 +15,8 @@ fun main(args: Array<String>) {
 
     //val m = Matlin.Matrix("2,0,1;0,3,0;1,0,5")
 
+    /*
+
 
     val n= 10
     val l = List(n*n) { Random.nextDouble(-1000.0,1000.0)}
@@ -55,8 +57,11 @@ fun main(args: Array<String>) {
 
 
 
+     */
 
 
+    val m = Matrix("4,15,2;22,1,3;5,2,10")
+    println(Determinant.det(m))
 
 
 
