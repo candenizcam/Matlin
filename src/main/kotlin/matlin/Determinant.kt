@@ -4,6 +4,9 @@ import matlin.Factorization.partialPivotLU
 
 object Determinant {
     fun det(A: Matrix): Double{
+        if(!A.square){
+            throw Exception("Matlin.Matrix must be square")
+        }
         var P: Matrix
         val L: Matrix
         val U: Matrix

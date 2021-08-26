@@ -1,12 +1,15 @@
 package matlin
 
 object MatrixInversion {
-    fun inversion(m: Matrix, pivot: Boolean=true): Matrix {
-        return if(m.square){
+    fun inversion(A: Matrix, pivot: Boolean=true): Matrix {
+        return if(A.square){
+            if(Determinant.det(A)!=0.0){
+                throw Exception("Matlin.Matrix is not invertible, det(A) is 0")
+            }
             if(pivot){
-                pivotSquareInvert(m)
+                pivotSquareInvert(A)
             }else{
-                squareInvert(m)
+                squareInvert(A)
             }
 
         }else{
